@@ -3,16 +3,51 @@ const { User, Post, Comment } = require('../../models');
 
 
 // GET api/users
-
 router.get('/', (req, res) => {
-    User.findAll({})
+    User.findAll({
+        attributes: { exclude:['password'] }
+    })
     .then(dbUserAllData => res.json(dbUserAllData))
     .catch(err => {
         res.status(500).json({ message: 'Unable to Get All User Information' });
     });
 });
 
+// GET /api/users/1
+router.get('/:id', (req, res) => {
+    User.findOne({
+        attributes: { exclude: ['password'] },
+        where: {
+            id: req.params.id
+        },
+        include: [
+            {
+                model: Post,
+                attributes: ['id','title','post_url', 'created_at']
+            },
+            {
+                model: Comment,
+                attributes: ['id', 'comment_text', 'created_at'],
+                include: {
+                    model: Post,
+                    attributes: ['title']
+                }
+            },
+        ]
+    })
+    .then(dbUserOneData => {
+        if(!dbUserOneData) {
+            res.status(404).json({ message: 'Cannot find user with this id' });
+            return;
+        }
+        res.json(dbUserOneData);
+    })
+    .catch(err => {
+        res.status(500).json({ message: 'Something went wrong' });
+    });
+});
 
+// POST to create a new user
 router.post('/', (req, res) => {
     User.create({
         username: req.body.username,
@@ -24,5 +59,30 @@ router.post('/', (req, res) => {
         res.status(500).json({ message: 'Unable to create user' });
     });
 });
+
+
+router.put('/:id', (req, res) => {
+    User.update(req.body, {
+        individualHooks: true,
+        where: {
+            id: req.params.id
+        }
+    })
+    .then(dbUserUpdate => {
+        if(!dbUserUpdate[0]) {
+            res.status(404).json({ message: 'No user found with this id' });
+            return;
+        }
+        res.json(dbUserUpdate);
+    })
+    .catch(err => {
+        res.status(500).json({ message: 'Unable to update user' });
+    });
+});
+
+router.delete('/:id', (req, res) => {
+    
+})
+
 
 module.exports = router;
