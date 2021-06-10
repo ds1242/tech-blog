@@ -13,4 +13,16 @@ router.get('/', (req, res) => {
 });
 
 
+router.post('/', (req, res) => {
+    User.create({
+        username: req.body.username,
+        email: req.body.email,
+        password: req.body.password
+    })
+    .then(dbUserCreateData => res.json(dbUserCreateData))
+    .catch(err => {
+        res.status(500).json({ message: 'Unable to create user' });
+    });
+});
+
 module.exports = router;
