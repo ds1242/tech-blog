@@ -81,8 +81,22 @@ router.put('/:id', (req, res) => {
 });
 
 router.delete('/:id', (req, res) => {
-    
-})
+    User.destroy({
+        where: {
+            id: req.params.id
+        }
+    })
+    .then(dbUserDelete => {
+        if(!dbUserDelete) {
+            res.status(404).json({ message: 'Unable to find user to delete' });
+            return;
+        }
+        res.json(dbUserDelete)
+    })
+    .catch(err => {
+        res.status(500).json(err);
+    });
+});
 
 
 module.exports = router;
