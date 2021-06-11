@@ -16,7 +16,7 @@ const sess = {
     secret: process.env.COOKIE,
     cookie: {},
     resave: false,
-    saveUnitialized: false,
+    saveUnitialized: true,
     store: new SequelizeStore({
         db: sequelize
     })
@@ -25,6 +25,7 @@ const sess = {
 app.use(session(sess));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.use(routes)
