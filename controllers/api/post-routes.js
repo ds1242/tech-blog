@@ -29,6 +29,7 @@ router.get('/', (req, res) => {
     });
 });
 
+// GET One Post
 router.get('/:id', (req, res) => {
     Post.findOne({
         where: { id: req.params.id },
@@ -60,7 +61,7 @@ router.get('/:id', (req, res) => {
     });
 });
 
-// Post POST 
+// POST a new Post 
 router.post('/', (req, res) => {
     Post.create({
         title: req.body.title,
@@ -73,7 +74,7 @@ router.post('/', (req, res) => {
     });
 });
 
-
+// Update a Post
 router.put('/:id', (req, res) => {
     Post.update(
         {
@@ -98,6 +99,7 @@ router.put('/:id', (req, res) => {
     });
 });
 
+// DELETE a Post
 router.delete('/:id', (req, res) => {
     Post.destroy(
         {

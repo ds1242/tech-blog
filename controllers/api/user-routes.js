@@ -60,7 +60,7 @@ router.post('/', (req, res) => {
     });
 });
 
-
+// Update a User route
 router.put('/:id', (req, res) => {
     User.update(req.body, {
         individualHooks: true,
@@ -80,6 +80,7 @@ router.put('/:id', (req, res) => {
     });
 });
 
+// Delete a User
 router.delete('/:id', (req, res) => {
     User.destroy({
         where: {
