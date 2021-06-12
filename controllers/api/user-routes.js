@@ -2,6 +2,7 @@ const router = require('express').Router();
 const { User, Post, Comment } = require('../../models');
 
 
+
 // GET api/users
 router.get('/', (req, res) => {
     User.findAll({
@@ -54,10 +55,53 @@ router.post('/', (req, res) => {
         email: req.body.email,
         password: req.body.password
     })
-    .then(dbUserCreateData => res.json(dbUserCreateData))
+    .then(dbUserCreateData => {
+        req.session.save(() => {
+            req.session.user_id = dbUserCreateData.id;
+            req.session.username = dbUserCreateData.username;
+            req.session.loggedIn = true;
+            res.json(dbUserCreateData)
+        })
+    })
     .catch(err => {
         res.status(500).json({ message: 'Unable to create user' });
     });
+});
+
+router.post('/login', (req, res) => {
+    User.findOne({
+        where: {
+            email: req.body.email
+        }
+    }).then(dbUserLoginData => {
+        if(!dbUserLoginData) {
+            res.status(404).json({ message: 'Cannot find a user with this email' });
+            return;
+        }
+        const validPassword = dbUserLoginData.checkPassword(req.body.password);
+        if(!validPassword) {
+            res.status(400).json({ message: 'Incorrect Password' });
+            return;
+        }
+        req.session.save(() => {
+            req.session.user_id = dbUserLoginData.id;
+            req.session.username = dbUserLoginData.username;
+            req.session.loggedIn = true;
+
+            res.json({ user: dbUserLoginData, message: 'You are now logged in' });
+        });
+    });
+});
+
+// Log out and delete cookie
+router.post('/logout', (req, res) => {
+    if(req.session.loggedIn) {
+        req.session.destroy(() => {
+            res.status(204).end();
+        });
+    } else {
+        res.status(404).end();
+    }
 });
 
 // Update a User route
