@@ -16,8 +16,7 @@ async function signUpHandler(event) {
             headers: { 'Content-Type': 'application/json' }
         })
         if(response.ok) {
-            console.log('success');
-            document.location.replace('/');
+            document.location.replace('/dashboard');
         } else {
             console.log(response.statusText)
         }
@@ -40,7 +39,7 @@ async function loginHandler(event) {
             headers: { 'Content-Type': 'application/json' }
         });
         if(response.ok){
-            document.location.replace('/');
+            document.location.replace('/dashboard');
         } else {
             console.log(response);
             alert(response.statusText);
