@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const sequelize = require('../config/connection');
 const { Post, User, Comment } = require('../models');
 
 
@@ -7,7 +8,6 @@ router.get('/', (req, res) => {
     console.log(req.session);
     Post.findAll({
         attributes: ['id', 'post_text', 'title', 'created_at'],
-        order: [['created_at', 'DESC']],
         include: [
             {
                 model: Comment,
@@ -30,6 +30,7 @@ router.get('/', (req, res) => {
             posts,
             loggedIn: req.session.loggedIn
         });
+        // res.render('homepage', { posts });
     })
     .catch(err => {
         res.status(500).json({ message: 'Something went wrong loading page' })
