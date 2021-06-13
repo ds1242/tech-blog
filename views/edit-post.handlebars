@@ -16,21 +16,21 @@
     </form>
 </article>
 
-{{!-- {{#if loggedIn}}
-<form class="comment-form">
+{{#if loggedIn}}
+<form class="comment-form" id="comment-text-form">
   <div>
-    <textarea name="comment-body"></textarea>
+    <textarea name="comment" id='comment-text'></textarea>
   </div>
 
   <div>
     <button type="submit">add comment</button>
   </div>
 </form>
-{{/if}} --}}
-{{!-- {{> comments post.comment}} --}}
+{{/if}}
+{{> comments post.comment}}
 
 {{#if loggedIn}}
 <script src="/javascript/edit-post.js"></script>
 <script src="/javascript/delete.js"></script>
-{{!-- <script src="/javascript/comment.js"></script> --}}
+<script src="/javascript/comment.js"></script>
 {{/if}}
