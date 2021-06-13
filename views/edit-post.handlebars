@@ -11,7 +11,7 @@
             <textarea id="post-text" name="post-text">{{post.post_text}}</textarea>
         </div>
         <button type="submit">Save post</button>
-        <button type="button" class="delete-post-btn">Delete post</button>
+        <button type="button" class="delete-post-btn" id='delete-post-btn'>Delete post</button>
         
     </form>
 </article>
@@ -31,6 +31,6 @@
 
 {{#if loggedIn}}
 <script src="/javascript/edit-post.js"></script>
-<script src="/javascript/delete-post.js"></script>
+<script src="/javascript/delete.js"></script>
 {{!-- <script src="/javascript/comment.js"></script> --}}
 {{/if}}
