@@ -17,6 +17,7 @@ const sess = {
     cookie: {},
     resave: false,
     saveUnitialized: true,
+    maxAge: 1 * 30 * 60 * 1000,
     store: new SequelizeStore({
         db: sequelize
     })
