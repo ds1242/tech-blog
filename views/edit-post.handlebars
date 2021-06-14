@@ -10,8 +10,8 @@
             <label for="post-text">Text</label>
             <textarea id="post-text" name="post-text">{{post.post_text}}</textarea>
         </div>
-        <button type="submit">Save post</button>
-        <button type="button" class="delete-post-btn" id='delete-post-btn'>Delete post</button>
+        <button type="submit" class="btn btn-secondary">Save post</button>
+        <button type="button" class="delete-post-btn btn btn-danger" id='delete-post-btn'>Delete post</button>
         
     </form>
 </article>
@@ -19,15 +19,15 @@
 {{#if loggedIn}}
 <form class="comment-form" id="comment-text-form">
   <div>
-    <textarea name="comment" id='comment-text'></textarea>
+    <textarea name="comment" id='comment-text' placeholder="Add A Comment"></textarea>
   </div>
 
   <div>
-    <button type="submit">add comment</button>
+    <button type="submit" class="btn btn-secondary">Add Comment</button>
   </div>
 </form>
 {{/if}}
-{{> comments post.comment}}
+{{> comments post.comments}}
 
 {{#if loggedIn}}
 <script src="/javascript/edit-post.js"></script>
