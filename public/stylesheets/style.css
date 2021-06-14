@@ -7,22 +7,22 @@
     padding: 0;
     margin: 0;
     font-family: sans-serif;
-    color: #333;
+    color: #273043;
+    background-color: white;
   }
   
   a {
     text-decoration: none;
-    color: #225ca3;
+    color: white;
     font-weight: bold;
     transition: color .1s;
   }
   
   a:hover {
-    color: #3486eb;
+    color: #C9C9C9;
   }
   
   button {
-    background-color: #225ca3;
     border: 0;
     padding: 1%;
     color: white;
@@ -32,9 +32,6 @@
     border-radius: 5px;
   }
   
-  button:hover {
-    background-color: #3486eb;
-  }
   
   .post-list {
     margin: 0;
@@ -82,8 +79,12 @@
     padding: 0 1%;
   }
   
-  header h1 {
+  header h1 {    
     font-size: 2.5em;
+  }
+
+  header h1 a {
+    color: #14591D;
   }
   
   main {
